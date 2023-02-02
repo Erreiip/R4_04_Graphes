@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/etudiant/lp212835/TP/java/paquetage_class/gs-ui.jar",
+        "/home/etudiant/lp212835/TP/java/paquetage_class/gs-core.jar",
+        "/home/etudiant/lp212835/TP/java/paquetage_class/gs-algo.jar"
+    ]
+}
