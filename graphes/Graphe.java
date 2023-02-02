@@ -208,7 +208,7 @@ public class Graphe
                 
                 //debug(s1, s2, i);
 
-                if (iterations == 0 && s1.getCout() > 100)
+                if (iterations == 0 && s1.getCout() == Integer.MAX_VALUE)
                 {
                     s2.setCout(0 + i);
                 } else if (s2.getCout() > (s1.getCout() + i))

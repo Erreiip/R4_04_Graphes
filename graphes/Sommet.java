@@ -13,7 +13,7 @@ public class Sommet
     public Sommet(String nom)
     {
         this.nom = nom;
-        this.cout = 9999;
+        this.cout = Integer.MAX_VALUE;
         this.voisins = new HashMap<Sommet, Integer>();
         this.voisinsLePlusCourt = new HashMap<Sommet, Integer>();
     }
