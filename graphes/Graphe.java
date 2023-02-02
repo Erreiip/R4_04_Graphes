@@ -68,7 +68,7 @@ public class Graphe
         {
             for ( Sommet voisin : s.getVoisins())
             {
-                Edge e = sg.addEdge(s.getNom() + "/" + voisin.getNom() + ":" + s.getVoisinsCourt(voisin), s.getNom(), voisin.getNom(), true);
+                Edge e = sg.addEdge(s.getNom() + "/" + voisin.getNom() + ":" + s.getVoisins(voisin), s.getNom(), voisin.getNom(), true);
                 e.addAttribute("ui.style", "size: 2px; text-background-mode : plain;");
                 e.addAttribute("ui.label", e.getId()); 
                 
