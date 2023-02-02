@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -34,9 +35,10 @@ public class FrameInformations extends JFrame
             ArrayList<JLabel> alLbl = new ArrayList<JLabel>();
 
             JLabel lblTemp = new JLabel(s.getNom(), JLabel.CENTER);
+            lblTemp.setForeground(Color.RED);
             this.panelInfos.add(lblTemp);
 
-            for ( int cpt = 0; cpt < nbIterations - 2; cpt++)
+            for ( int cpt = 0; cpt < nbIterations - 1; cpt++)
             {
                 lblTemp = new JLabel("", JLabel.CENTER);
                 alLbl.add(lblTemp);
@@ -49,5 +51,21 @@ public class FrameInformations extends JFrame
         this.add(this.panelInfos);
 
         this.setVisible(true);
+    }
+
+    public void iteration(int numeroIteration)
+    {
+        for ( Sommet s : graphe.getSommets())
+        {
+            JLabel lblTemp = this.hsmSommetLbl.get(s).get(numeroIteration);
+
+            if ( numeroIteration != 0 )
+            {
+                int i = Integer.parseInt(this.hsmSommetLbl.get(s).get(numeroIteration-1).getText());
+                if ( i != s.getCout() ) lblTemp.setForeground(Color.BLUE);
+            }
+
+            lblTemp.setText(s.getCout() + "");
+        }
     }
 }

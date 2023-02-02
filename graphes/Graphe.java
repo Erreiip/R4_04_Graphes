@@ -8,6 +8,11 @@ import org.graphstream.algorithm.Toolkit ;
 public class Graphe 
 {
     ArrayList<Sommet> alSommet;
+    SingleGraph sg;
+    FrameInformations frameInfos;
+
+    public static final int GRAPHE_COURS = 4;
+    public static final int GRAPHE_EX1   = 5;
 
     public Graphe(int nbSommets)
     {
@@ -17,6 +22,9 @@ public class Graphe
         {
             this.alSommet.add( new Sommet((char)('A'+cpt) + ""));
         }
+
+        this.frameInfos = new FrameInformations(this);
+        this.sg = null;
     }
 
     public Sommet getSommet(String sSommet)
@@ -31,6 +39,8 @@ public class Graphe
 
     public int               size      () { return this.alSommet.size(); }
     public ArrayList<Sommet> getSommets() { return this.alSommet; }
+
+    public void iteration(int iteration) { this.frameInfos.iteration(iteration);}
 
     public boolean creerArc(String sommet1, String sommet2, int cout)
     {
@@ -53,13 +63,13 @@ public class Graphe
 
     public void creerGraphe()
     {
-        SingleGraph sg = new SingleGraph("Graphe");
+        this.sg = new SingleGraph("Graphe");
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         System.setProperty("org.graphstream.ui", "swing");
         
         for (Sommet s : this.alSommet )
         {
-            Node n = sg.addNode(s.getNom());
+            Node n = this.sg.addNode(s.getNom());
             n.setAttribute("ui.style","fill-color:red;shape : circle; size : 30px;text-mode: normal;");
             n.addAttribute("ui.label", n.getId()); 
         }
@@ -68,15 +78,14 @@ public class Graphe
         {
             for ( Sommet voisin : s.getVoisins())
             {
-                Edge e = sg.addEdge(s.getNom() + "/" + voisin.getNom() + ":" + s.getVoisins(voisin), s.getNom(), voisin.getNom(), true);
+                Edge e = this.sg.addEdge(s.getNom() + "/" + voisin.getNom() + ":" + s.getVoisins(voisin), s.getNom(), voisin.getNom(), true);
                 e.addAttribute("ui.style", "size: 2px; text-background-mode : plain;");
                 e.addAttribute("ui.label", e.getId()); 
                 
             }
         }
 
-        sg.display();
-        new FrameInformations(this);
+        this.sg.display();
     }
 
 
@@ -92,6 +101,11 @@ public class Graphe
 
         return sRet;
     }
+    
+    
+    //------------------------------------------//
+    //           Methodes statiques             //
+    //------------------------------------------//
 
     public static void creerArcEx1(Graphe graphe)
     {
@@ -107,17 +121,28 @@ public class Graphe
         graphe.creerArc("E", "C", 5);
     }
 
-    public static void main(String[] args)
+    public static void creerArcCours(Graphe graphe)
     {
-        Graphe graphe = new Graphe(5);
-        
-        Graphe.creerArcEx1(graphe);
-        Graphe.BellmanFordEx1(graphe);
-
-        graphe.creerGraphe();
+        graphe.creerArc("A", "B", 8);
+        graphe.creerArc("A", "C", 6);
+        graphe.creerArc("A", "D", 2);
+        graphe.creerArc("D", "B", 5);
+        graphe.creerArc("D", "C", 1);
+        graphe.creerArc("C", "B", 3);
     }
 
-    public static void BellmanFordEx1(Graphe graphe)
+    public static void creerArcExBonus(Graphe graphe)
+    {
+        graphe.creerArc("A", "B", 4);
+        graphe.creerArc("A", "D", 2);
+        graphe.creerArc("B", "C", 15);
+        graphe.creerArc("B", "E", 4);
+        graphe.creerArc("B", "D", -6);
+        graphe.creerArc("D", "E", 2);
+    }
+
+
+    public static void BFdEx1(Graphe graphe)
     {
         String[][] ex = {
                             {"E", "A"},
@@ -132,6 +157,45 @@ public class Graphe
                             {"D", "E"}
                         };
 
+        Graphe.ressoudreBF(graphe, ex);
+    }
+
+    public static void BFCours(Graphe graphe)
+    {
+        String[][] ex = {
+                            {"A", "B"},
+                            {"A", "D"},
+                            {"A", "C"},
+                            {"C", "B"},
+                            {"D", "B"},
+                            {"D", "C"}
+                        };
+        
+        graphe.getSommet("A").setCout(0);
+
+        Graphe.ressoudreBF(graphe, ex);
+    }
+
+    public static void BFdExBonus(Graphe graphe)
+    {
+        String[][] ex = {
+                            {"A", "B"},
+                            {"A", "D"},
+                            {"B", "C"},
+                            {"B", "E"},
+                            {"B", "D"},
+                            {"D", "E"}
+                        };
+        
+        graphe.getSommet("A").setCout(0);
+        
+        Graphe.ressoudreBF(graphe, ex);
+    }
+
+    
+
+    public static void ressoudreBF(Graphe graphe, String[][] ex)
+    {
         for ( int iterations = 0; iterations < graphe.size() - 1; iterations++)
         {
             for ( int cpt = 0; cpt < ex.length; cpt++)
@@ -139,7 +203,7 @@ public class Graphe
                 Sommet s1 = graphe.getSommet(ex[cpt][0]);
                 Sommet s2 = graphe.getSommet(ex[cpt][1]);
 
-                Integer i = s1.getVoisinsCourt(s2);
+                Integer i =null;// s1.getVoisinsCourt(s2);
                 if ( i == null ) i = s1.getVoisins(s2);
                 
                 //debug(s1, s2, i);
@@ -155,8 +219,9 @@ public class Graphe
                 s1.ajouterVoisinsCourt(s2, s2.getCout() + i);
             }
 
-            System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
-            System.out.println(graphe.afficher());
+            graphe.iteration(iterations);
+            //System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
+            //System.out.println(graphe.afficher());
         }
     }
     
