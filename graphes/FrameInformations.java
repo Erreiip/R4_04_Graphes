@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.graphstream.algorithm.Toolkit;
+
 public class FrameInformations extends JFrame
 {
     Graphe graphe;
@@ -16,7 +18,9 @@ public class FrameInformations extends JFrame
     public FrameInformations(Graphe g)
     {
         this.setSize(new Dimension(300,400));
-        this.setLocation(0,0);
+        Dimension dim = this.getToolkit().getScreenSize();
+        int y = (int) ((dim.getHeight()/2) - 100);
+        this.setLocation(200,y);
 
         this.graphe = g;
         int nbIterations = g.getSommets().size();
@@ -28,9 +32,13 @@ public class FrameInformations extends JFrame
         for ( Sommet s :this.graphe.getSommets())
         {
             ArrayList<JLabel> alLbl = new ArrayList<JLabel>();
-            for ( int cpt = 0; cpt < nbIterations - 1; cpt++)
+
+            JLabel lblTemp = new JLabel(s.getNom(), JLabel.CENTER);
+            this.panelInfos.add(lblTemp);
+
+            for ( int cpt = 0; cpt < nbIterations - 2; cpt++)
             {
-                JLabel lblTemp = new JLabel("shesh");
+                lblTemp = new JLabel("", JLabel.CENTER);
                 alLbl.add(lblTemp);
                 this.panelInfos.add(lblTemp);
             }

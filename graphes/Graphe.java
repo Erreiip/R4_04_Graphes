@@ -88,10 +88,6 @@ public class Graphe
         for ( Sommet s : this.alSommet )
         {
             sRet += "" + s.getNom() + " cout : " + s.getCout() + "\n"; 
-            /*for ( Sommet s2 : s.getVoisinsCourt())
-            {
-                sRet += "Sommet : " + s2.getNom() + " | cout : " + s.getVoisinsCourt(s2) + "\n";  
-            }*/
         }
 
         return sRet;
@@ -136,7 +132,7 @@ public class Graphe
                             {"D", "E"}
                         };
 
-        for ( int interations = 0; interations < graphe.size() - 1; interations++)
+        for ( int iterations = 0; iterations < graphe.size() - 1; iterations++)
         {
             for ( int cpt = 0; cpt < ex.length; cpt++)
             {
@@ -148,7 +144,7 @@ public class Graphe
                 
                 //debug(s1, s2, i);
 
-                if (interations == 0 && s1.getCout() > 100)
+                if (iterations == 0 && s1.getCout() > 100)
                 {
                     s2.setCout(0 + i);
                 } else if (s2.getCout() > (s1.getCout() + i))
@@ -159,7 +155,7 @@ public class Graphe
                 s1.ajouterVoisinsCourt(s2, s2.getCout() + i);
             }
 
-            System.out.println("-----------------\nITERATION " + (interations+1) + "\n-----------------");
+            System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
             System.out.println(graphe.afficher());
         }
     }
