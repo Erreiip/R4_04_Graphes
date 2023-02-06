@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Stack;
 
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.graph.Node;
@@ -18,15 +20,31 @@ public class Graphe
     {
         this.alSommet = new ArrayList<Sommet>();
 
-        for ( int cpt = 0; cpt < nbSommets; cpt++)
-        {
-            this.alSommet.add( new Sommet((char)('A'+cpt) + ""));
+        for (int cpt = 0; cpt < nbSommets; cpt++) {
+            this.alSommet.add(new Sommet((char) ('A' + cpt) + ""));
         }
 
         this.frameInfos = new FrameInformations(this);
         this.sg = null;
     }
 
+    public Graphe(int nbSommets, boolean source)
+    {
+        this.alSommet = new ArrayList<Sommet>();
+
+        Sommet s = new Sommet("S");
+        s.setCout(0);
+        this.alSommet.add(s);
+
+        for (int cpt = 0; cpt < nbSommets - 1; cpt++) {
+            this.alSommet.add(new Sommet((char) ('A' + cpt) + ""));
+        }
+
+        this.frameInfos = new FrameInformations(this);
+        this.sg = null;
+    }
+
+    
     public Sommet getSommet(String sSommet)
     {
         for ( Sommet s : this.alSommet )
@@ -42,6 +60,7 @@ public class Graphe
 
     public void iteration(int iteration) { this.frameInfos.iteration(iteration);}
 
+    
     public boolean creerArc(String sommet1, String sommet2, int cout)
     {
         Sommet s1 = null;
@@ -61,6 +80,7 @@ public class Graphe
         return true;
     }
 
+    
     public void creerGraphe()
     {
         this.sg = new SingleGraph("Graphe");
@@ -104,6 +124,80 @@ public class Graphe
     
     
     //------------------------------------------//
+    //                 Algo                     //
+    //------------------------------------------//
+
+    public void ressoudreBF(String[][] ex)
+    {
+        for ( int iterations = 0; iterations < this.size() - 1; iterations++)
+        {
+            for ( int cpt = 0; cpt < ex.length; cpt++)
+            {
+                Sommet s1 = this.getSommet(ex[cpt][0]);
+                Sommet s2 = this.getSommet(ex[cpt][1]);
+
+                Integer i =null;// s1.getVoisinsCourt(s2);
+                if ( i == null ) i = s1.getVoisins(s2);
+                
+                //debug(s1, s2, i);
+
+                if (iterations == 0 && s1.getCout() == Integer.MAX_VALUE)
+                {
+                    s2.setCout(0 + i);
+                    System.out.println("shesh");
+                } else if (s2.getCout() > (s1.getCout() + i))
+                {
+                    s2.setCout(s1.getCout() + i);
+                }
+            }
+
+            this.iteration(iterations);
+            //System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
+            //System.out.println(this.afficher());
+        }
+    }
+    
+    
+    public void ressoudreDijikstra()
+    {
+        Stack<Sommet> stSommets = new Stack<Sommet>();
+
+        for (Sommet s : this.alSommet)
+        {
+            stSommets.add(s);
+        }
+        ArrayList<Sommet> alVoisins = new ArrayList<Sommet>();
+        ArrayList<Sommet> alVisite  = new ArrayList<Sommet>();
+        alVisite.add(this.alSommet.get(0));
+
+        for ( int cpt = 0; cpt < this.size(); cpt++ )
+        {
+            for ( Sommet sommet : alVisite )
+            {
+                stSommets.remove(sommet);
+
+                for (Sommet voisin : sommet.getVoisins()) {
+                    int coutTrajet = sommet.getVoisins(voisin);
+                    if (voisin.getCout() > sommet.getCout() + coutTrajet) {
+                        voisin.setCout(sommet.getCout() + coutTrajet);
+                    }
+
+                    if (!stSommets.contains(voisin))
+                    {
+                        alVoisins.add(voisin);
+                    }
+                }
+            }
+
+            alVisite = new ArrayList<Sommet>(alVoisins);
+            Collections.sort(alVisite);
+            alVoisins.removeAll(alVoisins);
+        }
+        
+        this.iteration(0);
+    }
+    
+    //------------------------------------------//
     //           Methodes statiques             //
     //------------------------------------------//
 
@@ -116,9 +210,9 @@ public class Graphe
         graphe.creerArc("C", "A", 1);
         graphe.creerArc("C", "D", 5);
         graphe.creerArc("D", "B", 3);
-        graphe.creerArc("D", "E", 3);
-        graphe.creerArc("E", "A", 3);
-        graphe.creerArc("E", "C", 5);
+        graphe.creerArc("D", "S", 3);
+        graphe.creerArc("S", "A", 3);
+        graphe.creerArc("S", "C", 5);
     }
 
     public static void creerArcCours(Graphe graphe)
@@ -145,8 +239,8 @@ public class Graphe
     public static void BFdEx1(Graphe graphe)
     {
         String[][] ex = {
-                            {"E", "A"},
-                            {"E", "C"},
+                            {"S", "A"},
+                            {"S", "C"},
                             {"A", "C"},
                             {"C", "A"},
                             {"A", "B"},
@@ -154,10 +248,10 @@ public class Graphe
                             {"C", "D"},
                             {"D", "B"},
                             {"B", "D"},
-                            {"D", "E"}
+                            {"D", "S"}
                         };
 
-        Graphe.ressoudreBF(graphe, ex);
+        graphe.ressoudreBF(ex);
     }
 
     public static void BFCours(Graphe graphe)
@@ -173,7 +267,7 @@ public class Graphe
         
         graphe.getSommet("A").setCout(0);
 
-        Graphe.ressoudreBF(graphe, ex);
+        graphe.ressoudreBF(ex);
     }
 
     public static void BFdExBonus(Graphe graphe)
@@ -189,40 +283,7 @@ public class Graphe
         
         graphe.getSommet("A").setCout(0);
         
-        Graphe.ressoudreBF(graphe, ex);
-    }
-
-    
-
-    public static void ressoudreBF(Graphe graphe, String[][] ex)
-    {
-        for ( int iterations = 0; iterations < graphe.size() - 1; iterations++)
-        {
-            for ( int cpt = 0; cpt < ex.length; cpt++)
-            {
-                Sommet s1 = graphe.getSommet(ex[cpt][0]);
-                Sommet s2 = graphe.getSommet(ex[cpt][1]);
-
-                Integer i =null;// s1.getVoisinsCourt(s2);
-                if ( i == null ) i = s1.getVoisins(s2);
-                
-                //debug(s1, s2, i);
-
-                if (iterations == 0 && s1.getCout() == Integer.MAX_VALUE)
-                {
-                    s2.setCout(0 + i);
-                } else if (s2.getCout() > (s1.getCout() + i))
-                {
-                    s2.setCout(s1.getCout() + i);
-                }
-                
-                s1.ajouterVoisinsCourt(s2, s2.getCout() + i);
-            }
-
-            graphe.iteration(iterations);
-            //System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
-            //System.out.println(graphe.afficher());
-        }
+        graphe.ressoudreBF(ex);
     }
     
     private static void debug(Sommet s1, Sommet s2, int i)
