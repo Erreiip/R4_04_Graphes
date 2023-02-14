@@ -12,6 +12,7 @@ public class Graphe
     ArrayList<Sommet> alSommet;
     SingleGraph sg;
     FrameInformations frameInfos;
+    FrameCalculs frmCalculs;
 
     public static final int GRAPHE_COURS = 4;
     public static final int GRAPHE_EX1   = 5;
@@ -25,6 +26,7 @@ public class Graphe
         }
 
         this.frameInfos = new FrameInformations(this);
+        this.frmCalculs = new FrameCalculs();
         this.sg = null;
     }
 
@@ -41,9 +43,17 @@ public class Graphe
         }
 
         this.frameInfos = new FrameInformations(this);
+        this.frmCalculs = new FrameCalculs();
+
         this.sg = null;
     }
 
+
+    public void setSource(String nomSommet)
+    {
+        Sommet source = getSommet(nomSommet);
+        source.setCout(0);
+    }
     
     public Sommet getSommet(String sSommet)
     {
@@ -58,7 +68,11 @@ public class Graphe
     public int               size      () { return this.alSommet.size(); }
     public ArrayList<Sommet> getSommets() { return this.alSommet; }
 
-    public void iteration(int iteration) { this.frameInfos.iteration(iteration);}
+    public void iteration(int iteration) 
+    {
+        this.frameInfos.iteration(iteration);
+        this.frmCalculs.iteration();
+    }
 
     
     public boolean creerArc(String sommet1, String sommet2, int cout)
@@ -96,15 +110,17 @@ public class Graphe
 
         for( Sommet s : this.alSommet)
         {
-            for ( Sommet voisin : s.getVoisins())
-            {
-                Edge e = this.sg.addEdge(s.getNom() + "/" + voisin.getNom() + ":" + s.getVoisins(voisin), s.getNom(), voisin.getNom(), true);
+            for (Sommet voisin : s.getVoisins()) {
+                Edge e = this.sg.addEdge(s.getNom() + "/" + voisin.getNom() + ":" + s.getVoisins(voisin), s.getNom(),
+                        voisin.getNom(), true);
                 e.addAttribute("ui.style", "size: 2px; text-background-mode : plain;");
-                e.addAttribute("ui.label", e.getId()); 
-                
+                e.addAttribute("ui.label", e.getId());
+
             }
         }
 
+        this.frameInfos.setVisible(true);
+        this.frmCalculs.setVisible(true);
         this.sg.display();
     }
 
@@ -136,19 +152,25 @@ public class Graphe
                 Sommet s1 = this.getSommet(ex[cpt][0]);
                 Sommet s2 = this.getSommet(ex[cpt][1]);
 
-                Integer i =null;// s1.getVoisinsCourt(s2);
-                if ( i == null ) i = s1.getVoisins(s2);
+                Integer i =s1.getVoisins(s2);
+                //if ( i == null ) i = ;
                 
                 //debug(s1, s2, i);
+
+                String coutS1 = s1.getCout() + "";
+                String coutS2 = s2.getCout() + "";
 
                 if (iterations == 0 && s1.getCout() == Integer.MAX_VALUE)
                 {
                     s2.setCout(0 + i);
-                    System.out.println("shesh");
                 } else if (s2.getCout() > (s1.getCout() + i))
                 {
                     s2.setCout(s1.getCout() + i);
                 }
+
+                String coutFinalS2 = s2.getCout() + "";
+
+                this.frmCalculs.ajouterCalcul(s1.getNom(), s2.getNom(), coutS2, coutS1, i +"", coutFinalS2 );
             }
 
             this.iteration(iterations);
@@ -286,7 +308,7 @@ public class Graphe
         graphe.ressoudreBF(ex);
     }
     
-    private static void debug(Sommet s1, Sommet s2, int i)
+    private static void debug(Sommet s1, Sommet s2, Integer i)
     {
         System.out.println(s1.getNom() + " : " + s1.getCout());
         System.out.println(s2.getNom() + " : " + s2.getCout());

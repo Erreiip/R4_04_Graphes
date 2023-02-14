@@ -18,10 +18,10 @@ public class FrameInformations extends JFrame
 
     public FrameInformations(Graphe g)
     {
-        this.setSize(new Dimension(300,400));
+        this.setSize(new Dimension(600,400));
         Dimension dim = this.getToolkit().getScreenSize();
-        int y = (int) ((dim.getHeight()/2) - 100);
-        this.setLocation(200,y);
+        int y = (int) ((dim.getHeight()/2));
+        this.setLocation(0,y);
 
         this.graphe = g;
         int nbIterations = g.getSommets().size();
@@ -50,7 +50,8 @@ public class FrameInformations extends JFrame
 
         this.add(this.panelInfos);
 
-        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(false);
     }
 
     public void iteration(int numeroIteration)
