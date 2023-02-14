@@ -62,7 +62,7 @@ public class Main
 
         Graphe graphe = new Graphe(nbNoeuds);
         
-        System.out.println("Mode : Création de matrice ");
+        System.out.println("Mode : Création de matrice (exemple de ligne : A B 5) ");
 
         String ligne;
         while ( !(ligne = sc.nextLine()).equals("") )
@@ -80,7 +80,7 @@ public class Main
         graphe.setSource(sc.nextLine());
 
         System.out.println();
-        System.out.println("Mode : Ordre de résolution");
+        System.out.println("Mode : Ordre de résolution (exemple de ligne : A B)");
 
         ArrayList<String> alLignesResolutions = new ArrayList<String>();
         while ( !(ligne = sc.nextLine()).equals("") )
