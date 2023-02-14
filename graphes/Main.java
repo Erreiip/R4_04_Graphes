@@ -50,7 +50,7 @@ public class Main
  
     public static void graphePrengistre()
     {
-
+        System.out.println("je le fait un jour quand j'aurai un stage");
     }
     
     public static void creerGraphe()
@@ -62,7 +62,7 @@ public class Main
 
         Graphe graphe = new Graphe(nbNoeuds);
         
-        System.out.println("Mode création de matrice ");
+        System.out.println("Mode : Création de matrice ");
 
         String ligne;
         while ( !(ligne = sc.nextLine()).equals("") )
@@ -79,7 +79,8 @@ public class Main
         System.out.print("Noeud source : ");
         graphe.setSource(sc.nextLine());
 
-        System.out.println("Mode ordre de résolution ");
+        System.out.println();
+        System.out.println("Mode : Ordre de résolution");
 
         ArrayList<String> alLignesResolutions = new ArrayList<String>();
         while ( !(ligne = sc.nextLine()).equals("") )
