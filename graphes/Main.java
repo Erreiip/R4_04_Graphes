@@ -55,6 +55,8 @@ public class Main
     
     public static void creerGraphe()
     {
+        System.out.println();
+
         System.out.print("Nombre de noeuds : ");
         
         String strNbNoeuds = sc.nextLine();
@@ -62,7 +64,19 @@ public class Main
 
         Graphe graphe = new Graphe(nbNoeuds);
         
-        System.out.println("Mode : Création de matrice (exemple de ligne : A B 5) ");
+        System.out.println();
+
+        System.out.print("Noeuds disponible : [");
+        for ( int cpt = 0; cpt < nbNoeuds; cpt++)
+        {
+            System.out.print((char) ('A' + cpt));
+
+            if (cpt != (nbNoeuds - 1))
+                System.out.print(", ");
+        }
+        System.out.println("]");
+
+        System.out.println("Mode : Création d'arc (exemple de ligne : A B 5) ");
 
         String ligne;
         while ( !(ligne = sc.nextLine()).equals("") )

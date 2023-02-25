@@ -32,6 +32,7 @@ public class FrameCalculs extends JFrame
         this.add(this.panelCalculs);
                 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setAlwaysOnTop(true);
         this.setVisible(false);
     }
 

@@ -51,6 +51,7 @@ public class FrameInformations extends JFrame
         this.add(this.panelInfos);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setAlwaysOnTop(true);
         this.setVisible(false);
     }
 

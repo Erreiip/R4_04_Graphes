@@ -1,8 +1,14 @@
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
+import javax.swing.JFrame;
+
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.swingViewer.ViewPanel;
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Edge;
 import org.graphstream.algorithm.Toolkit ;
@@ -121,7 +127,18 @@ public class Graphe
 
         this.frameInfos.setVisible(true);
         this.frmCalculs.setVisible(true);
+       
+
         this.sg.display();
+        /* 
+        Viewer vu = new Viewer(this.sg, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
+        ViewPanel view = vu.addDefaultView(false);
+        JFrame frmGraphe = new JFrame();
+        frmGraphe.add(view);
+        frmGraphe.setPreferredSize(view.getPreferredSize());
+        frmGraphe.setAlwaysOnTop(true);
+        frmGraphe.setVisible(true);
+        */
     }
 
 
