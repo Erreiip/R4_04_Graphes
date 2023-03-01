@@ -190,7 +190,7 @@ public class Graphe
                 this.frmCalculs.ajouterCalcul(s1.getNom(), s2.getNom(), coutS2, coutS1, i +"", coutFinalS2 );
             }
 
-            this.iteration(iterations);
+            if ( iterations+1 < this.size() - 1 ) this.iteration(iterations);
             //System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
             //System.out.println(this.afficher());
         }

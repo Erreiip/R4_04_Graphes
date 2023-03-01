@@ -51,6 +51,42 @@ public class Main
     public static void graphePrengistre()
     {
         System.out.println("je le fait un jour quand j'aurai un stage");
+
+        //refaire le SOP pour
+        //Graphe exo1
+        //Graphe cours
+        //Graphe exoBonus
+
+        System.out.println("Menu");
+        System.out.println("+---------------------------------------+");
+        System.out.println("| " + String.format("%-37s", "R-Résoudre un graphe préenregistré") + " |");
+        System.out.println("| " + String.format("%-37s", "C-Créer son graphe et le résoudre") + " |");
+        System.out.println("+---------------------------------------+");
+
+        //gérer les cas
+        String str = "";
+        do {
+            System.out.print("Votre choix [EB-E1-C] : ");
+            str = sc.nextLine();
+        } while (!str.equals("EB") && !str.equals("E1") && !str.equals("C"));
+
+        if ( str.equals("E1"))
+        {
+            Graphe g = new Graphe(Graphe.GRAPHE_EX1);
+            Graphe.creerArcEx1(g);
+            g.creerGraphe();
+
+        } else if ( str.equals("EB"))
+        {
+            Graphe g = new Graphe(Graphe.GRAPHE_EX1);
+            Graphe.creerArcExBonus(g);
+            g.creerGraphe();
+        }else if ( str.equals("C") )
+        {
+            Graphe g = new Graphe(Graphe.GRAPHE_COURS);
+            Graphe.creerArcCours(g);
+            g.creerGraphe();
+        }
     }
     
     public static void creerGraphe()
