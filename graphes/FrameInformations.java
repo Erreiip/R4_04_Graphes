@@ -63,11 +63,15 @@ public class FrameInformations extends JFrame
 
             if ( numeroIteration != 0 )
             {
-                int i = Integer.parseInt(this.hsmSommetLbl.get(s).get(numeroIteration-1).getText());
+                String cout = this.hsmSommetLbl.get(s).get(numeroIteration-1).getText();
+                if ( cout.equals( "+∞")) cout = Integer.MAX_VALUE + "";
+                int i = Integer.parseInt(cout);
                 if ( i != s.getCout() ) lblTemp.setForeground(Color.BLUE);
             }
 
-            lblTemp.setText(s.getCout() + "");
+            String cout = s.getCout() + "";
+            if ( s.getCout() == Integer.MAX_VALUE) cout = "+∞";
+            lblTemp.setText(cout);
         }
     }
 }
