@@ -249,9 +249,9 @@ public class Graphe
         graphe.creerArc("C", "A", 1);
         graphe.creerArc("C", "D", 5);
         graphe.creerArc("D", "B", 3);
-        graphe.creerArc("D", "S", 3);
-        graphe.creerArc("S", "A", 3);
-        graphe.creerArc("S", "C", 5);
+        graphe.creerArc("D", "E", 3);
+        graphe.creerArc("E", "A", 3);
+        graphe.creerArc("E", "C", 5);
     }
 
     public static void creerArcCours(Graphe graphe)
@@ -278,8 +278,8 @@ public class Graphe
     public static void BFdEx1(Graphe graphe)
     {
         String[][] ex = {
-                            {"S", "A"},
-                            {"S", "C"},
+                            {"E", "A"},
+                            {"E", "C"},
                             {"A", "C"},
                             {"C", "A"},
                             {"A", "B"},
@@ -287,7 +287,7 @@ public class Graphe
                             {"C", "D"},
                             {"D", "B"},
                             {"B", "D"},
-                            {"D", "S"}
+                            {"D", "E"}
                         };
 
         graphe.ressoudreBF(ex);

@@ -67,7 +67,7 @@ public class Main
         //gérer les cas
         String str = "";
         do {
-            System.out.print("Votre choix [EB-E1-C] : ");
+            System.out.print("Votre choix [C-E1-EB] : ");
             str = sc.nextLine();
         } while (!str.equals("EB") && !str.equals("E1") && !str.equals("C"));
 
