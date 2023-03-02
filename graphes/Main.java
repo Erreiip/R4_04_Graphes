@@ -58,10 +58,11 @@ public class Main
         //Graphe exoBonus
 
         System.out.println("Menu");
-        System.out.println("+---------------------------------------+");
-        System.out.println("| " + String.format("%-37s", "R-Résoudre un graphe préenregistré") + " |");
-        System.out.println("| " + String.format("%-37s", "C-Créer son graphe et le résoudre") + " |");
-        System.out.println("+---------------------------------------+");
+        System.out.println("+-------------------------------------------+");
+        System.out.println("| " + String.format("%-41s", "C  - Lancer le graphe du cours") + " |");
+        System.out.println("| " + String.format("%-41s", "E1 - Lancer le graphe de l'exercice 1") + " |");
+        System.out.println("| " + String.format("%-41s", "EB - Lancer le graphe de l'exercice bonus") + " |");
+        System.out.println("+-------------------------------------------+");
 
         //gérer les cas
         String str = "";
@@ -74,17 +75,20 @@ public class Main
         {
             Graphe g = new Graphe(Graphe.GRAPHE_EX1);
             Graphe.creerArcEx1(g);
+            Graphe.BFdEx1(g);
             g.creerGraphe();
 
         } else if ( str.equals("EB"))
         {
             Graphe g = new Graphe(Graphe.GRAPHE_EX1);
             Graphe.creerArcExBonus(g);
+            Graphe.BFdExBonus(g);
             g.creerGraphe();
         }else if ( str.equals("C") )
         {
             Graphe g = new Graphe(Graphe.GRAPHE_COURS);
             Graphe.creerArcCours(g);
+            Graphe.BFCours(g);
             g.creerGraphe();
         }
     }
