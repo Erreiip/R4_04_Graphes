@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "graphes/lib/gs-ui.jar",
+        "graphes/lib/gs-core.jar",
+        "graphes/lib/gs-algo.jar"
+    ]
+}

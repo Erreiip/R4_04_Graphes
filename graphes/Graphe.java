@@ -162,6 +162,14 @@ public class Graphe
 
     public void ressoudreBF(String[][] ex)
     {
+        int sommeCouts = 0;
+
+        for(Sommet s : alSommet){
+            sommeCouts += s.getCoutArc();
+        }
+
+        if(sommeCouts < 0){ return;}
+
         for ( int iterations = 0; iterations < this.size() - 1; iterations++)
         {
             for ( int cpt = 0; cpt < ex.length; cpt++)
