@@ -3,11 +3,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Color;
 
 public class FrameCalculs extends JFrame
 {
