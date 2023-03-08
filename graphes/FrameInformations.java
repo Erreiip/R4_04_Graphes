@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.graphstream.algorithm.Toolkit;
-
 public class FrameInformations extends JFrame
 {
     Graphe graphe;
