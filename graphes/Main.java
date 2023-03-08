@@ -153,9 +153,7 @@ public class Main
             cpt++;
         }
 
-        graphe.ressoudreBF(resolution);
-        
-        graphe.creerGraphe();
+        if ( graphe.ressoudreBF(resolution) ) graphe.creerGraphe();
     }
 
 }

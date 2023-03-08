@@ -160,15 +160,20 @@ public class Graphe
     //                 Algo                     //
     //------------------------------------------//
 
-    public void ressoudreBF(String[][] ex)
+    public boolean ressoudreBF(String[][] ex)
     {
         int sommeCouts = 0;
 
-        for(Sommet s : alSommet){
+        for(Sommet s : alSommet)
+        {
             sommeCouts += s.getCoutArcs();
         }
 
-        if(sommeCouts < 0){ return;}
+        if(sommeCouts < 0)
+        { 
+            System.out.println("Erreur : Le circuit est absorbant");
+            return false;
+        }
 
         for ( int iterations = 0; iterations < this.size() - 1; iterations++)
         {
@@ -202,6 +207,8 @@ public class Graphe
             //System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
             //System.out.println(this.afficher());
         }
+
+        return true;
     }
     
     
