@@ -22,6 +22,8 @@ public class Graphe
 
     public static final int GRAPHE_COURS = 4;
     public static final int GRAPHE_EX1   = 5;
+    public static final int GRAPHE_EXB   = 6;
+
 
     public Graphe(int nbSommets)
     {
@@ -175,6 +177,8 @@ public class Graphe
             return false;
         }
 
+        this.iteration(0);
+
         for ( int iterations = 0; iterations < this.size() - 1; iterations++)
         {
             for ( int cpt = 0; cpt < ex.length; cpt++)
@@ -183,9 +187,6 @@ public class Graphe
                 Sommet s2 = this.getSommet(ex[cpt][1]);
 
                 Integer i =s1.getVoisins(s2);
-                //if ( i == null ) i = ;
-                
-                //debug(s1, s2, i);
 
                 String coutS1 = s1.getCout() + "";
                 String coutS2 = s2.getCout() + "";
@@ -203,7 +204,7 @@ public class Graphe
                 this.frmCalculs.ajouterCalcul(s1.getNom(), s2.getNom(), coutS2, coutS1, i +"", coutFinalS2 );
             }
 
-            if ( iterations+1 < this.size() - 1 ) this.iteration(iterations);
+            if ( iterations+1 < this.size() - 1 ) this.iteration(iterations+1);
             //System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
             //System.out.println(this.afficher());
         }
@@ -287,6 +288,9 @@ public class Graphe
         graphe.creerArc("B", "E", 4);
         graphe.creerArc("B", "D", -6);
         graphe.creerArc("D", "E", 2);
+        graphe.creerArc("C", "F", 1);
+        graphe.creerArc("E", "F", 17);
+
     }
 
 
@@ -327,12 +331,15 @@ public class Graphe
     public static void BFdExBonus(Graphe graphe)
     {
         String[][] ex = {
+                            {"C", "F"},
+                            {"E", "F"},
                             {"A", "B"},
-                            {"A", "D"},
                             {"B", "C"},
                             {"B", "E"},
                             {"B", "D"},
-                            {"D", "E"}
+                            {"D", "E"},
+                            {"A", "D"},
+
                         };
         
         graphe.getSommet("A").setCout(0);

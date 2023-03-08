@@ -80,7 +80,7 @@ public class Main
 
         } else if ( str.equals("EB"))
         {
-            Graphe g = new Graphe(Graphe.GRAPHE_EX1);
+            Graphe g = new Graphe(Graphe.GRAPHE_EXB);
             Graphe.creerArcExBonus(g);
             Graphe.BFdExBonus(g);
             g.creerGraphe();
