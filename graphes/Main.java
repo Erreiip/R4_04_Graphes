@@ -27,8 +27,8 @@ public class Main
 
         System.out.println("Menu");
         System.out.println("+---------------------------------------+");
-        System.out.println("| " + String.format("%-37s", "R-Résoudre un graphe préenregistré") + " |");
-        System.out.println("| " + String.format("%-37s", "C-Créer son graphe et le résoudre") + " |");
+        System.out.println("| " + String.format("%-37s", "R - Résoudre un graphe préenregistré") + " |");
+        System.out.println("| " + String.format("%-37s", "C - Créer son graphe et le résoudre") + " |");
         System.out.println("+---------------------------------------+");
 
         String str = "";
@@ -84,6 +84,7 @@ public class Main
             Graphe.creerArcExBonus(g);
             Graphe.BFdExBonus(g);
             g.creerGraphe();
+
         }else if ( str.equals("C") )
         {
             Graphe g = new Graphe(Graphe.GRAPHE_COURS);
