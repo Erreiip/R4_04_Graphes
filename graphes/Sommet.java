@@ -29,6 +29,17 @@ public class Sommet implements Comparable<Sommet>
     public String getNom() { return this.nom; }
     public int getCout  () { return this.cout; }
 
+    public int getCoutArcs()
+    {
+        int cout = 0;
+        for ( Sommet s : this.voisins.keySet() )
+        {
+            cout += this.voisins.get(s);
+        }
+
+        return cout;
+    }
+
 
     public Set<Sommet> getVoisins() { return this.voisins.keySet(); }
 
