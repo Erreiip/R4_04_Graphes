@@ -165,7 +165,7 @@ public class Graphe
         int sommeCouts = 0;
 
         for(Sommet s : alSommet){
-            sommeCouts += s.getCoutArc();
+            sommeCouts += s.getCoutArcs();
         }
 
         if(sommeCouts < 0){ return;}
