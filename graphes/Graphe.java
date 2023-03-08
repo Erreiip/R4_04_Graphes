@@ -162,6 +162,7 @@ public class Graphe
 
     public void ressoudreBF(String[][] ex)
     {
+        
         for ( int iterations = 0; iterations < this.size() - 1; iterations++)
         {
             for ( int cpt = 0; cpt < ex.length; cpt++)
