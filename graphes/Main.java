@@ -50,13 +50,13 @@ public class Main
  
     public static void graphePrengistre()
     {
-        System.out.println("je le fait un jour quand j'aurai un stage");
 
         //refaire le SOP pour
         //Graphe exo1
         //Graphe cours
         //Graphe exoBonus
 
+        System.out.println();
         System.out.println("Menu");
         System.out.println("+-------------------------------------------+");
         System.out.println("| " + String.format("%-41s", "C  - Lancer le graphe du cours") + " |");

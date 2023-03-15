@@ -190,11 +190,17 @@ public class Graphe
 
                 String coutS1 = s1.getCout() + "";
                 String coutS2 = s2.getCout() + "";
-
+                /*/
                 if (iterations == 0 && s1.getCout() == Integer.MAX_VALUE)
                 {
                     s2.setCout(0 + i);
                 } else if (s2.getCout() > (s1.getCout() + i))
+                {
+                    s2.setCout(s1.getCout() + i);
+                }
+                */
+
+                if ( s1.getCout() != Integer.MAX_VALUE && s2.getCout() > (s1.getCout() + i))
                 {
                     s2.setCout(s1.getCout() + i);
                 }
@@ -204,7 +210,7 @@ public class Graphe
                 this.frmCalculs.ajouterCalcul(s1.getNom(), s2.getNom(), coutS2, coutS1, i +"", coutFinalS2 );
             }
 
-            if ( iterations+1 < this.size() - 1 ) this.iteration(iterations+1);
+            this.iteration(iterations+1);
             //System.out.println("-----------------\nITERATION " + (iterations+1) + "\n-----------------");
             //System.out.println(this.afficher());
         }
@@ -308,6 +314,9 @@ public class Graphe
                             {"B", "D"},
                             {"D", "E"}
                         };
+                        
+        graphe.getSommet("A").setCout(0);
+    
 
         graphe.ressoudreBF(ex);
     }

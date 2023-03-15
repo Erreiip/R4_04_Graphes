@@ -43,11 +43,14 @@ public class FrameCalculs extends JFrame
     {
         String[] tabCalculs = new String[4];
 
-        if (Integer.parseInt(coutS2) == Integer.MAX_VALUE)
+        if (Integer.parseInt(coutS2) >= Integer.MAX_VALUE)
             coutS2 = "+∞";
 
-        if (Integer.parseInt(coutS1) == Integer.MAX_VALUE)
+        if (Integer.parseInt(coutS1) >= Integer.MAX_VALUE)
             coutS1 = "+∞";
+
+        if ( Integer.parseInt(coutFinalS2) >= Integer.MAX_VALUE )
+            coutFinalS2 = "+∞";
 
         tabCalculs[0] = "(" + nomS1 + "," + nomS2 + ")";
         tabCalculs[1] = "d(" + nomS2 + ")" + " > " + "d(" + nomS1 + ")" + " + " + "w" + tabCalculs[0];

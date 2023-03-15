@@ -25,7 +25,7 @@ public class FrameInformations extends JFrame
         int nbIterations = g.getSommets().size();
 
         this.panelInfos = new JPanel();
-        this.panelInfos.setLayout(new GridLayout(nbIterations, nbIterations - 1 ));
+        this.panelInfos.setLayout(new GridLayout(nbIterations, nbIterations ));
 
         this.hsmSommetLbl = new HashMap<Sommet, ArrayList<JLabel>>();
         for ( Sommet s :this.graphe.getSommets())
@@ -36,7 +36,7 @@ public class FrameInformations extends JFrame
             lblTemp.setForeground(Color.RED);
             this.panelInfos.add(lblTemp);
 
-            for ( int cpt = 0; cpt < nbIterations - 1; cpt++)
+            for ( int cpt = 0; cpt < nbIterations ; cpt++)
             {
                 lblTemp = new JLabel("", JLabel.CENTER);
                 alLbl.add(lblTemp);
@@ -68,7 +68,7 @@ public class FrameInformations extends JFrame
             }
 
             String cout = s.getCout() + "";
-            if ( s.getCout() == Integer.MAX_VALUE) cout = "+∞";
+            if ( s.getCout() >= Integer.MAX_VALUE) cout = "+∞";
             lblTemp.setText(cout);
         }
     }
